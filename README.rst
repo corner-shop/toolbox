@@ -15,9 +15,9 @@ Included:
 
 Execute as:
 
-.. code-block:: bash
-   docker run -it \
-      -v $HOME/.ssh:/home/user/.ssh \
-      -v $HOME:/.aws:/home/user \
-      -v $PWD:/workdir \
-      toolbox terraform plan
+
+     docker run -it \
+        -v $HOME/.ssh:/home/user/.ssh \
+        -v $HOME:/.aws:/home/user \
+        -v $PWD:/workdir \
+        toolbox terraform plan
