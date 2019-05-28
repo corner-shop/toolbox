@@ -60,10 +60,10 @@ RUN pyenv install 3.6.8
 
 WORKDIR /tmp
 
-RUN yes | PKG_CONFIG_PATH=/usr/lib/openssl-1.0/pkgconfig ruby-install ruby 2.1.8
-RUN yes | PKG_CONFIG_PATH=/usr/lib/openssl-1.0/pkgconfig ruby-install ruby 2.3.3
-RUN yes | ruby-install ruby 2.4.1
-RUN yes | ruby-install ruby 2.4.4
+RUN yes | ( PKG_CONFIG_PATH=/usr/lib/openssl-1.0/pkgconfig ruby-install --jobs=4 ruby 2.1.8 && rm -rf /home/user/src )
+RUN yes | ( PKG_CONFIG_PATH=/usr/lib/openssl-1.0/pkgconfig ruby-install --jobs=4 ruby 2.3.3 && rm -rf /home/user/src )
+RUN yes | ( ruby-install --jobs=4 ruby 2.4.1 && rm -rf /home/user/src )
+RUN yes | ( ruby-install --jobs=4 ruby 2.4.4 && rm -rf /home/user/src )
 
 # don't install any editors, only tools to update state on AWS
 # example: tfenv, terraform, packer, pyenv,  pythons, ruby, chruby, etcs, gcc6
