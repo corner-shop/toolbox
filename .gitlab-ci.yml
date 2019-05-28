@@ -11,7 +11,7 @@ docker build:
   stage: Build Image
   script:
     - docker info
-    - docker build -t azulinho/toolboox .
+    - docker build --cache-from azulinho/toolbox:cache --tag azulinho/toolbox:latest --tag azulinho/toolbox:cache .
 
 docker push:
   stage: Publish Image to DockerHub
@@ -19,5 +19,6 @@ docker push:
     - master
   script:
     - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
-    - docker push azulinho/toolbox
+    - docker push azulinho/toolbox:latest
+    - docker push azulinho/toolbox:cache
     - docker image rm azulinho/toobox
