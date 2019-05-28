@@ -1,9 +1,20 @@
+image: docker:stable
 
 stages:
-    - build
+    - Build Image
+    - Publish Image to DockerHub
 
-setup:
-    stage: build
-    script:
-      - docker build -t azulinho/toolboox .
-      - docker push azulinho/toolboox
+docker build:
+  stage: Build Image
+  script:
+    - docker info
+    - docker build -t azulinho/toolboox .
+
+docker push:
+  stage: Publish Image to DockerHub
+  only:
+    - master
+  script:
+    - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
+    - docker push azulinho/toolbox
+    - docker image rm azulinho/toobox
