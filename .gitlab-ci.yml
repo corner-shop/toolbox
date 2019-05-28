@@ -1,5 +1,8 @@
 image: docker:stable
 
+services:
+  - docker:dind
+
 stages:
     - Build Image
     - Publish Image to DockerHub
