@@ -1,0 +1,9 @@
+
+stages:
+    - build
+
+setup:
+    stage: build
+    script:
+      - docker build -t azulinho/toolboox .
+      - docker push azulinho/toolboox
