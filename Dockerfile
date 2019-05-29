@@ -48,22 +48,18 @@ RUN chmod 755 /usr/sbin/ruby-install
 USER user
 
 RUN pyenv install 2.7.16
-RUN pyenv install 3.6.0
-RUN pyenv install 3.6.1
-RUN pyenv install 3.6.2
-RUN pyenv install 3.6.3
-RUN pyenv install 3.6.4
-RUN pyenv install 3.6.5
-RUN pyenv install 3.6.6
-RUN pyenv install 3.6.7
 RUN pyenv install 3.6.8
+RUN pyenv install 3.7.2
 
 WORKDIR /tmp
 
-RUN yes | ( PKG_CONFIG_PATH=/usr/lib/openssl-1.0/pkgconfig ruby-install --jobs=4 ruby 2.1.8 && rm -rf /home/user/src )
-RUN yes | ( PKG_CONFIG_PATH=/usr/lib/openssl-1.0/pkgconfig ruby-install --jobs=4 ruby 2.3.3 && rm -rf /home/user/src )
-RUN yes | ( ruby-install --jobs=4 ruby 2.4.1 && rm -rf /home/user/src )
-RUN yes | ( ruby-install --jobs=4 ruby 2.4.4 && rm -rf /home/user/src )
+RUN yes | ( PKG_CONFIG_PATH=/usr/lib/openssl-1.0/pkgconfig ruby-install --jobs=4 ruby 2.1.10 && rm -rf /home/user/src )
+RUN yes | ( PKG_CONFIG_PATH=/usr/lib/openssl-1.0/pkgconfig ruby-install --jobs=4 ruby 2.2.10 && rm -rf /home/user/src )
+RUN yes | ( PKG_CONFIG_PATH=/usr/lib/openssl-1.0/pkgconfig ruby-install --jobs=4 ruby 2.3.8 && rm -rf /home/user/src )
+RUN yes | ( ruby-install --jobs=4 ruby 2.4.6 && rm -rf /home/user/src )
+RUN yes | ( ruby-install --jobs=4 ruby 2.5.5 && rm -rf /home/user/src )
+RUN yes | ( ruby-install --jobs=4 ruby 2.6.3 && rm -rf /home/user/src )
+
 
 # don't install any editors, only tools to update state on AWS
 # example: tfenv, terraform, packer, pyenv,  pythons, ruby, chruby, etcs, gcc6
