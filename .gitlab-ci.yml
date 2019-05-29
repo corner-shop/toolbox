@@ -3,6 +3,13 @@ image: docker:stable
 services:
   - docker:dind
 
+variables:
+  DOCKER_HOST: tcp://docker:2375
+  DOCKER_DRIVER: overlay2
+
+before_script:
+  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+
 stages:
     - Build Image
     - Publish Image to DockerHub
@@ -11,15 +18,13 @@ docker build:
   stage: Build Image
   script:
     - docker info
-    - docker pull azulinho/toolbox:cache
-    - docker build --cache-from azulinho/toolbox:cache --tag azulinho/toolbox:latest --tag azulinho/toolbox:cache .
+    - docker pull azulinho/toolbox:cache # TODO: change to gitlab registry
+    - docker build --cache-from azulinho/toolbox:cache --tag $CI_REGISTRY/cornershop/toolbox/toolbox:latest --tag $CI_REGISTRY/cornershop/toolbox/toolbox:cache .
 
 docker push:
   stage: Publish Image to DockerHub
   only:
     - master
   script:
-    - echo "$REGISTRY_PASSWORD" | docker login -u "$REGISTRY_USER" --password-stdin
-    - docker push azulinho/toolbox:latest
-    - docker push azulinho/toolbox:cache
-    - docker image rm azulinho/toobox
+    - docker push $CI_REGISTRY/cornershop/cornershop:latest
+    - docker push $CI_REGISTRY/cornershop/cornershop:cache
