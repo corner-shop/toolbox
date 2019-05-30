@@ -26,5 +26,5 @@ docker push:
   only:
     - master
   script:
-    - docker push $CI_REGISTRY/cornershop/toolbox:latest
-    - docker push $CI_REGISTRY/cornershop/toolbox:cache
+    - docker push $CI_REGISTRY/cornershop/toolbox/toolbox:latest
+    - docker push $CI_REGISTRY/cornershop/toolbox/toolbox:cache
