@@ -12,14 +12,19 @@ before_script:
 
 stages:
     - Build Image
+    - Publish Image to DockerHub
 
 docker build:
   stage: Build Image
-  only:
-    - master
   script:
     - docker info
     - docker pull azulinho/toolbox:cache # TODO: change to gitlab registry
     - docker build --cache-from azulinho/toolbox:cache --tag $CI_REGISTRY/cornershop/toolbox/toolbox:latest --tag $CI_REGISTRY/cornershop/toolbox/toolbox:cache .
+
+docker push:
+  stage: Publish Image to DockerHub
+  only:
+    - master
+  script:
     - docker push $CI_REGISTRY/cornershop/toolbox:latest
     - docker push $CI_REGISTRY/cornershop/toolbox:cache
