@@ -6,9 +6,11 @@ services:
 variables:
   DOCKER_HOST: tcp://docker:2375
   DOCKER_DRIVER: overlay2
+  REGISTRY: registry.gitlab.com
+  IMAGE: thecornershop/toolbox
 
 before_script:
-  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  - docker login registry.gitlab.com
 
 stages:
     - Build Image
@@ -20,8 +22,8 @@ docker build:
   script:
     - docker info
     - docker pull azulinho/toolbox:cache # TODO: change to gitlab registry
-    - docker build --cache-from azulinho/toolbox:cache --tag $CI_REGISTRY/cornershop/toolbox/toolbox:latest --tag $CI_REGISTRY/cornershop/toolbox/toolbox:cache .
+    - docker build --cache-from azulinho/toolbox:cache --tag $REGISTRY/$IMAGE:latest --tag $REGISTRY/$IMAGE:cache .
     - docker images
-    - docker push $CI_REGISTRY/cornershop/toolbox/toolbox:latest
-    - docker push $CI_REGISTRY/cornershop/toolbox/toolbox:cache
+    - docker push $REGISTRY/$IMAGE:latest
+    - docker push $REGISTRY/$IMAGE:cache
 
