@@ -15,8 +15,9 @@ Included:
 
 Execute as: ::
 
-  docker run -it \
-    -v $HOME/.ssh:/home/user/.ssh \
-    -v $HOME:/.aws:/home/user \
-    -v $PWD:/workdir \
-    toolbox terraform plan
+    docker run -it \
+       -v $HOME/.ssh:/home/user/.ssh \
+       -v $HOME/.aws:/home/user/.aws \
+       -v $PWD:/workdir \
+       registry.gitlab.com/thecornershop/toolbox \
+       terraform plan
