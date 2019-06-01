@@ -13,6 +13,7 @@ RUN pacman -Syyu --noconfirm --noprogressbar && \
     sharutils \
     openssl-1.0 \
     python-pip \
+    python-virtualenv \
     keybase &&  \
     pacman -Scc
 
@@ -85,6 +86,7 @@ RUN pkenv install 1.3.5
 RUN tfenv install 0.11.14
 RUN tfenv install 0.12.0
 
+WORKDIR /workdir
 
 # don't install any editors, only tools to update state on AWS
 # example: tfenv, terraform, packer, pyenv,  pythons, ruby, chruby, etcs, gcc6
