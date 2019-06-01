@@ -9,11 +9,11 @@ RUN pacman -Syyu --noconfirm --noprogressbar && \
     ttf-roboto \
     pyalpm \
     git \
-    unzip
-
-RUN pacman -S --noconfirm openssl-1.0
-
-
+    unzip \
+    sharutils \
+    openssl-1.0 \
+    keybase &&  \
+    pacman -Scc
 
 # Install yay - https://github.com/Jguer/yay
 ENV yay_version=9.2.0
@@ -38,7 +38,6 @@ RUN /usr/sbin/groupadd --system sudo && \
 
 USER user
 
-#RUN yay -S --noconfirm python-build
 RUN yay -S --noconfirm pyenv
 RUN yay -S --noconfirm chruby
 RUN yay -S --noconfirm ruby-install
@@ -53,6 +52,7 @@ RUN pyenv install 3.7.2
 
 WORKDIR /tmp
 
+# install ruby
 RUN yes | ( PKG_CONFIG_PATH=/usr/lib/openssl-1.0/pkgconfig ruby-install --jobs=4 ruby 2.1.10 && rm -rf /home/user/src )
 RUN yes | ( PKG_CONFIG_PATH=/usr/lib/openssl-1.0/pkgconfig ruby-install --jobs=4 ruby 2.2.10 && rm -rf /home/user/src )
 RUN yes | ( PKG_CONFIG_PATH=/usr/lib/openssl-1.0/pkgconfig ruby-install --jobs=4 ruby 2.3.8 && rm -rf /home/user/src )
@@ -66,8 +66,12 @@ USER root
 RUN ln -s /home/user/.pkenv/bin/* /usr/local/bin
 RUN ln -s /home/user/.tfenv/bin/* /usr/local/bin
 USER user
+
+# instal pkenv
 RUN pkenv install 1.4.1
 RUN pkenv install 1.3.5
+
+# install tfenv
 RUN tfenv install 0.11.14
 RUN tfenv install 0.12.0
 
