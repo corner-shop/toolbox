@@ -12,6 +12,7 @@ RUN pacman -Syyu --noconfirm --noprogressbar && \
     unzip \
     sharutils \
     openssl-1.0 \
+    python-pip \
     keybase &&  \
     pacman -Scc
 
@@ -36,6 +37,13 @@ RUN /usr/sbin/groupadd --system sudo && \
     /usr/sbin/sed -i -e "s/Defaults    requiretty.*/ #Defaults    requiretty/g" /etc/sudoers && \
     /usr/sbin/echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
+RUN pip install awscli
+
+# install aws-profile https://github.com/jaymecd/aws-profile
+RUN git clone https://github.com/jaymecd/aws-profile.git && \
+    cp aws-profile/aws-* /usr/bin/ && \
+    chmod +x /usr/bin/aws-*
+
 USER user
 
 RUN yay -S --noconfirm pyenv
@@ -44,6 +52,8 @@ RUN yay -S --noconfirm ruby-install
 
 USER root
 RUN chmod 755 /usr/sbin/ruby-install
+
+
 USER user
 
 RUN pyenv install 2.7.16
