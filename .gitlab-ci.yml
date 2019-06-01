@@ -21,7 +21,7 @@ docker build:
   script:
     - docker info
     - docker pull $CI_REGISTRY/$IMAGE:cache
-    - docker build --cache-from $CI_REGISTRY:$IMAGE:cache --tag $CI_REGISTRY/$IMAGE:latest --tag $CI_REGISTRY/$IMAGE:cache .
+    - docker build --cache-from $CI_REGISTRY/$IMAGE:cache --tag $CI_REGISTRY/$IMAGE:latest --tag $CI_REGISTRY/$IMAGE:cache .
     - docker images
     - docker push $CI_REGISTRY/$IMAGE:latest
     - docker push $CI_REGISTRY/$IMAGE:cache
