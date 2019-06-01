@@ -8,7 +8,8 @@ RUN pacman -Syyu --noconfirm --noprogressbar && \
     base-devel \
     ttf-roboto \
     pyalpm \
-    git
+    git \
+    unzip
 
 RUN pacman -S --noconfirm openssl-1.0
 
@@ -37,7 +38,6 @@ RUN /usr/sbin/groupadd --system sudo && \
 
 USER user
 
-RUN yay -S --noconfirm tfenv
 #RUN yay -S --noconfirm python-build
 RUN yay -S --noconfirm pyenv
 RUN yay -S --noconfirm chruby
@@ -59,6 +59,17 @@ RUN yes | ( PKG_CONFIG_PATH=/usr/lib/openssl-1.0/pkgconfig ruby-install --jobs=4
 RUN yes | ( ruby-install --jobs=4 ruby 2.4.6 && rm -rf /home/user/src )
 RUN yes | ( ruby-install --jobs=4 ruby 2.5.5 && rm -rf /home/user/src )
 RUN yes | ( ruby-install --jobs=4 ruby 2.6.3 && rm -rf /home/user/src )
+
+RUN git clone https://github.com/iamhsa/pkenv.git /home/user/.pkenv && cd /home/user/.pkenv && git checkout 9f0567b331d361c008f41865eecc9ee01927ee62
+RUN git clone https://github.com/tfutils/tfenv.git /home/user/.tfenv && cd /home/user/.tfenv && git checkout 4475b714e0291d20727a3e2946f3b3e2136df059
+USER root
+RUN ln -s /home/user/.pkenv/bin/* /usr/local/bin
+RUN ln -s /home/user/.tfenv/bin/* /usr/local/bin
+USER user
+RUN pkenv install 1.4.1
+RUN pkenv install 1.3.5
+RUN tfenv install 0.11.14
+RUN tfenv install 0.12.0
 
 
 # don't install any editors, only tools to update state on AWS
