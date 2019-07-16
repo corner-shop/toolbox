@@ -1,3 +1,4 @@
+
 variables:
   IMAGE: thecornershop/toolbox
 
@@ -8,13 +9,13 @@ services:
   - docker:dind
 
 stages:
-    - Build base Image
-    - Build middle Images
-    - Build final Image
+    - Build base image
+    - Build middle images
+    - Build latest image
 
 
 docker build base:
-  stage: Build base Image
+  stage: Build base image
   only:
     - master
   script:
@@ -26,7 +27,7 @@ docker build base:
     - docker push $CI_REGISTRY/$IMAGE:cache.base
 
 docker build python image:
-  stage: Build middle Images
+  stage: Build middle images
   only:
     - master
   script:
@@ -38,7 +39,7 @@ docker build python image:
     - docker push $CI_REGISTRY/$IMAGE:cache.python
 
 docker build ruby image:
-  stage: Build middle Images
+  stage: Build middle images
   only:
     - master
   script:
@@ -49,8 +50,8 @@ docker build ruby image:
     - docker push $CI_REGISTRY/$IMAGE:ruby
     - docker push $CI_REGISTRY/$IMAGE:cache.ruby
 
-docker build:
-  stage: Build Image
+docker build latest:
+  stage: Build latest image
   only:
     - master
   script:
