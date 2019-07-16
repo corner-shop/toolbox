@@ -21,11 +21,10 @@ docker build base:
     - master
   script:
     - docker info
-    - docker pull $CI_REGISTRY/$IMAGE:cache.base
-    - docker build -f Dockerfile.base --cache-from $CI_REGISTRY/$IMAGE:cache.base --tag $CI_REGISTRY/$IMAGE:base --tag $CI_REGISTRY/$IMAGE:cache.base .
+    - docker pull $CI_REGISTRY/$IMAGE:base || true
+    - docker build -f Dockerfile.base --tag $CI_REGISTRY/$IMAGE:base .
     - docker images
     - docker push $CI_REGISTRY/$IMAGE:base
-    - docker push $CI_REGISTRY/$IMAGE:cache.base
 
 docker build python image:
   stage: Build middle images
@@ -33,11 +32,10 @@ docker build python image:
     - master
   script:
     - docker info
-    - docker pull $CI_REGISTRY/$IMAGE:cache.python
-    - docker build -f Dockerfile.python  --cache-from $CI_REGISTRY/$IMAGE:cache.python --tag $CI_REGISTRY/$IMAGE:python --tag $CI_REGISTRY/$IMAGE:cache.python .
+    - docker pull $CI_REGISTRY/$IMAGE:python || true
+    - docker build -f Dockerfile.python   --tag $CI_REGISTRY/$IMAGE:python .
     - docker images
     - docker push $CI_REGISTRY/$IMAGE:python
-    - docker push $CI_REGISTRY/$IMAGE:cache.python
 
 docker build ruby image:
   stage: Build middle images
@@ -45,11 +43,10 @@ docker build ruby image:
     - master
   script:
     - docker info
-    - docker pull $CI_REGISTRY/$IMAGE:cache.ruby
-    - docker build -f Dockerfile.ruby  --cache-from $CI_REGISTRY/$IMAGE:cache.ruby --tag $CI_REGISTRY/$IMAGE:ruby --tag $CI_REGISTRY/$IMAGE:cache.ruby .
+    - docker pull $CI_REGISTRY/$IMAGE:ruby || true
+    - docker build -f Dockerfile.ruby  --tag $CI_REGISTRY/$IMAGE:ruby .
     - docker images
     - docker push $CI_REGISTRY/$IMAGE:ruby
-    - docker push $CI_REGISTRY/$IMAGE:cache.ruby
 
 docker build latest:
   stage: Build latest image
@@ -57,8 +54,7 @@ docker build latest:
     - master
   script:
     - docker info
-    - docker pull $CI_REGISTRY/$IMAGE:cache.latest
-    - docker build --cache-from $CI_REGISTRY/$IMAGE:cache.latest --tag $CI_REGISTRY/$IMAGE:latest --tag $CI_REGISTRY/$IMAGE:cache.latest .
+    - docker pull $CI_REGISTRY/$IMAGE:latest || true
+    - docker build  --tag $CI_REGISTRY/$IMAGE:latest .
     - docker images
     - docker push $CI_REGISTRY/$IMAGE:latest
-    - docker push $CI_REGISTRY/$IMAGE:cache.latest
