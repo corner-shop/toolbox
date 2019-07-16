@@ -4,8 +4,50 @@ variables:
 before_script:
   -  docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
 
+services:
+  - docker:dind
+
 stages:
-    - Build Image
+    - Build base Image
+    - Build middle Images
+    - Build final Image
+
+
+docker build base:
+  stage: Build base Image
+  only:
+    - master
+  script:
+    - docker info
+    - docker pull $CI_REGISTRY/$IMAGE:cache.base
+    - docker build -f Dockerfile.base --cache-from $CI_REGISTRY/$IMAGE:cache.base --tag $CI_REGISTRY/$IMAGE:base --tag $CI_REGISTRY/$IMAGE:cache.base .
+    - docker images
+    - docker push $CI_REGISTRY/$IMAGE:base
+    - docker push $CI_REGISTRY/$IMAGE:cache.base
+
+docker build python image:
+  stage: Build middle Images
+  only:
+    - master
+  script:
+    - docker info
+    - docker pull $CI_REGISTRY/$IMAGE:cache.python
+    - docker build -f Dockerfile.python  --cache-from $CI_REGISTRY/$IMAGE:cache.python --tag $CI_REGISTRY/$IMAGE:python --tag $CI_REGISTRY/$IMAGE:cache.python .
+    - docker images
+    - docker push $CI_REGISTRY/$IMAGE:python
+    - docker push $CI_REGISTRY/$IMAGE:cache.python
+
+docker build ruby image:
+  stage: Build middle Images
+  only:
+    - master
+  script:
+    - docker info
+    - docker pull $CI_REGISTRY/$IMAGE:cache.ruby
+    - docker build -f Dockerfile.ruby  --cache-from $CI_REGISTRY/$IMAGE:cache.ruby --tag $CI_REGISTRY/$IMAGE:ruby --tag $CI_REGISTRY/$IMAGE:cache.ruby .
+    - docker images
+    - docker push $CI_REGISTRY/$IMAGE:ruby
+    - docker push $CI_REGISTRY/$IMAGE:cache.ruby
 
 docker build:
   stage: Build Image
@@ -13,11 +55,8 @@ docker build:
     - master
   script:
     - docker info
-    - docker pull $CI_REGISTRY/$IMAGE:cache
-    - docker build --cache-from $CI_REGISTRY/$IMAGE:cache --tag $CI_REGISTRY/$IMAGE:latest --tag $CI_REGISTRY/$IMAGE:cache .
+    - docker pull $CI_REGISTRY/$IMAGE:cache.latest
+    - docker build --cache-from $CI_REGISTRY/$IMAGE:cache.latest --tag $CI_REGISTRY/$IMAGE:latest --tag $CI_REGISTRY/$IMAGE:cache.latest .
     - docker images
     - docker push $CI_REGISTRY/$IMAGE:latest
-    - docker push $CI_REGISTRY/$IMAGE:cache
-  tags:
-    - archlinux
-
+    - docker push $CI_REGISTRY/$IMAGE:cache.latest
