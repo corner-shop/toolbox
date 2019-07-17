@@ -5,11 +5,7 @@ variables:
 
 before_script:
   - docker info
-  -  docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-
-services:
-  - docker:dind
-    command: ["--experimental"]
+  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
 
 stages:
     - Build base image
@@ -19,6 +15,9 @@ stages:
 
 docker build base:
   stage: Build base image
+  services:
+    - name: docker:dind
+      command: ["--experimental"]
   only:
     - master
   script:
@@ -26,6 +25,9 @@ docker build base:
 
 docker build python image:
   stage: Build middle images
+  services:
+    - name: docker:dind
+      command: ["--experimental"]
   only:
     - master
   script:
@@ -33,6 +35,9 @@ docker build python image:
 
 docker build ruby image:
   stage: Build middle images
+  services:
+    - name: docker:dind
+      command: ["--experimental"]
   only:
     - master
   script:
@@ -40,6 +45,9 @@ docker build ruby image:
 
 docker build latest:
   stage: Build latest image
+  services:
+    - name: docker:dind
+      command: ["--experimental"]
   only:
     - master
   script:
