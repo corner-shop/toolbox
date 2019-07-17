@@ -9,6 +9,7 @@ before_script:
 
 services:
   - docker:dind
+    command: ["--experimental"]
 
 stages:
     - Build base image
