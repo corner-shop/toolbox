@@ -1,4 +1,8 @@
-image: gitlab:dind
+image: docker:git
+
+services:
+  - name: docker:dind
+    command: ["--experimental"]
 
 variables:
   IMAGE: thecornershop/toolbox
@@ -15,9 +19,6 @@ stages:
 
 docker build base:
   stage: Build base image
-  services:
-    - name: docker:dind
-      command: ["--experimental"]
   only:
     - master
   script:
@@ -25,9 +26,6 @@ docker build base:
 
 docker build python image:
   stage: Build middle images
-  services:
-    - name: docker:dind
-      command: ["--experimental"]
   only:
     - master
   script:
@@ -35,9 +33,6 @@ docker build python image:
 
 docker build ruby image:
   stage: Build middle images
-  services:
-    - name: docker:dind
-      command: ["--experimental"]
   only:
     - master
   script:
@@ -45,9 +40,6 @@ docker build ruby image:
 
 docker build latest:
   stage: Build latest image
-  services:
-    - name: docker:dind
-      command: ["--experimental"]
   only:
     - master
   script:
