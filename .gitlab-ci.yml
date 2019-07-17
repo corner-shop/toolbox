@@ -10,19 +10,12 @@ variables:
 before_script:
   - docker info
   - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  - apk add make
 
 stages:
-    - Install requirements
     - Build base image
     - Build middle images
     - Build latest image
-
-Install requirements:
-  stage: Install requirements
-  only:
-    - master
-  script:
-    - apk add make
 
 docker build base:
   stage: Build base image
