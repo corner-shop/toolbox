@@ -6,6 +6,7 @@ COPY --from=registry.gitlab.com/thecornershop/toolbox:ruby /opt/rubies /opt/rubi
 
 
 RUN tfenv install 0.11.13
+RUN tfenv install 0.11.14
 
 RUN PATH=/opt/pkenv/bin:$PATH pkenv install 1.2.5
 

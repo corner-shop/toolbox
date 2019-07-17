@@ -1,9 +1,10 @@
-image: gitlab/dind
+image: docker:experimental-dind
 
 variables:
   IMAGE: thecornershop/toolbox
 
 before_script:
+  - docker info
   -  docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
 
 services:
@@ -20,41 +21,25 @@ docker build base:
   only:
     - master
   script:
-    - docker info
-    - docker pull $CI_REGISTRY/$IMAGE:base || true
-    - docker build -f Dockerfile.base --tag $CI_REGISTRY/$IMAGE:base .
-    - docker images
-    - docker push $CI_REGISTRY/$IMAGE:base
+    - make base
 
 docker build python image:
   stage: Build middle images
   only:
     - master
   script:
-    - docker info
-    - docker pull $CI_REGISTRY/$IMAGE:python || true
-    - docker build -f Dockerfile.python   --tag $CI_REGISTRY/$IMAGE:python .
-    - docker images
-    - docker push $CI_REGISTRY/$IMAGE:python
+    - make python
 
 docker build ruby image:
   stage: Build middle images
   only:
     - master
   script:
-    - docker info
-    - docker pull $CI_REGISTRY/$IMAGE:ruby || true
-    - docker build -f Dockerfile.ruby  --tag $CI_REGISTRY/$IMAGE:ruby .
-    - docker images
-    - docker push $CI_REGISTRY/$IMAGE:ruby
+    - make ruby
 
 docker build latest:
   stage: Build latest image
   only:
     - master
   script:
-    - docker info
-    - docker pull $CI_REGISTRY/$IMAGE:latest || true
-    - docker build  --tag $CI_REGISTRY/$IMAGE:latest .
-    - docker images
-    - docker push $CI_REGISTRY/$IMAGE:latest
+    - make latest

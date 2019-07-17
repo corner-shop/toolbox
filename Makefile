@@ -1,29 +1,25 @@
+
+CI_REGISTRY := registry.gitlab.com/thecornershop
+CI_IMAGE := toolbox
+
 all: base python ruby latest
 
 base:
-	docker pull registry.gitlab.com/thecornershop/toolbox:base
-	docker build -f Dockerfile.base -t registry.gitlab.com/thecornershop/toolbox:base
-	docker build -f Dockerfile.base -t registry.gitlab.com/thecornershop/toolbox:cache.base
-	docker push registry.gitlab.com/thecornershop/toolbox:base
-	docker push registry.gitlab.com/thecornershop/toolbox:cache.base
+	docker pull $(CI_REGISTRY)/$(CI_IMAGE):base
+	docker build -f Dockerfile.base --cache-from $(CI_REGISTRY)/$(CI_IMAGE):base  -t $(CI_REGISTRY)/$(CI_IMAGE):base .
+	docker push $(CI_REGISTRY)/$(CI_IMAGE):base
 
 python:
-	docker pull registry.gitlab.com/thecornershop/toolbox:python
-	docker build -f Dockerfile.python -t registry.gitlab.com/thecornershop/toolbox:python
-	docker build -f Dockerfile.python -t registry.gitlab.com/thecornershop/toolbox:cache.python
-	docker push registry.gitlab.com/thecornershop/toolbox:python
-	docker push registry.gitlab.com/thecornershop/toolbox:cache.python
+	docker pull $(CI_REGISTRY)/$(CI_IMAGE):python
+	docker build -f Dockerfile.python --cache-from $(CI_REGISTRY)/$(CI_IMAGE):python  -t $(CI_REGISTRY)/$(CI_IMAGE):python .
+	docker push $(CI_REGISTRY)/$(CI_IMAGE):python
 
 ruby:
-	docker pull registry.gitlab.com/thecornershop/toolbox:ruby
-	docker build -f Dockerfile.ruby -t registry.gitlab.com/thecornershop/toolbox:ruby
-	docker build -f Dockerfile.ruby -t registry.gitlab.com/thecornershop/toolbox:cache.ruby
-	docker push registry.gitlab.com/thecornershop/toolbox:ruby
-	docker push registry.gitlab.com/thecornershop/toolbox:cache.ruby
+	docker pull $(CI_REGISTRY)/$(CI_IMAGE):ruby
+	docker build -f Dockerfile.ruby --cache-from $(CI_REGISTRY)/$(CI_IMAGE):ruby  -t $(CI_REGISTRY)/$(CI_IMAGE):ruby .
+	docker push $(CI_REGISTRY)/$(CI_IMAGE):ruby
 
 latest:
-	docker pull registry.gitlab.com/thecornershop/toolbox:latest
-	docker build -f Dockerfile.latest -t registry.gitlab.com/thecornershop/toolbox:latest
-	docker build -f Dockerfile.latest -t registry.gitlab.com/thecornershop/toolbox:cache.latest
-	docker push registry.gitlab.com/thecornershop/toolbox:latest
-	docker push registry.gitlab.com/thecornershop/toolbox:cache.latest
+	docker pull $(CI_REGISTRY)/$(CI_IMAGE):latest
+	docker build -f Dockerfile.latest --cache-from $(CI_REGISTRY)/$(CI_IMAGE):latest  -t $(CI_REGISTRY)/$(CI_IMAGE):latest .
+	docker push $(CI_REGISTRY)/$(CI_IMAGE):latest
