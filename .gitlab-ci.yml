@@ -17,28 +17,85 @@ stages:
     - Build middle images
     - Build latest image
 
-docker build base:
+make base:
   stage: Build base image
   only:
     - master
   script:
     - make base
 
-docker build python image:
+make python.2.7.16:
   stage: Build middle images
   only:
     - master
   script:
-    - make python
+    - make python.2.7.16
 
-docker build ruby image:
+make python.3.4.1:
   stage: Build middle images
   only:
     - master
   script:
-    - make ruby
+    - make python.3.4.1
 
-docker build latest:
+make python.3.5.5:
+  stage: Build middle images
+  only:
+    - master
+  script:
+    - make python.3.5.5
+
+make python.3.6.3:
+  stage: Build middle images
+  only:
+    - master
+  script:
+    - make python.3.6.3
+
+make python.3.6.8:
+  stage: Build middle images
+  only:
+    - master
+  script:
+    - make python.3.6.8
+
+make python.3.7.4:
+  stage: Build middle images
+  only:
+    - master
+  script:
+    - make python.3.7.4
+
+
+make ruby.2.3.3:
+  stage: Build middle images
+  only:
+    - master
+  script:
+    - make ruby.2.3.3
+
+make ruby.2.4.3:
+  stage: Build middle images
+  only:
+    - master
+  script:
+    - make ruby.2.4.3
+
+make ruby.2.5.1:
+  stage: Build middle images
+  only:
+    - master
+  script:
+    - make ruby.2.5.1
+
+make ruby.2.6.3:
+  stage: Build middle images
+  only:
+    - master
+  script:
+    - make ruby.2.6.3
+
+make latest:
   stage: Build latest image
   only:
     - master
