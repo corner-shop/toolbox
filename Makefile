@@ -38,7 +38,7 @@ python.3.6.8:
 
 python.3.7.4:
 	docker pull $(CI_REGISTRY)/$(CI_IMAGE):python.3.7.4 || true
-	docker build -f Dockerfile.python.3.7.4 --cache-from $(CI_REGISTRY)/$(CI_IMAGE):python.3.6.8  -t $(CI_REGISTRY)/$(CI_IMAGE):python.3.6.8 .
+	docker build -f Dockerfile.python.3.7.4 --cache-from $(CI_REGISTRY)/$(CI_IMAGE):python.3.7.4  -t $(CI_REGISTRY)/$(CI_IMAGE):python.3.7.4 .
 	docker push $(CI_REGISTRY)/$(CI_IMAGE):python.3.7.4
 
 
