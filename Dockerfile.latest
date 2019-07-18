@@ -1,13 +1,13 @@
 FROM registry.gitlab.com/thecornershop/toolbox:base
 
 # time consuming tasks
-COPY --from=registry.gitlab.com/thecornershop/toolbox:python.2.7.16 /opt/pyenv/2.7.16 /opt/pyenv/2.7.16
-COPY --from=registry.gitlab.com/thecornershop/toolbox:python.3.4.1 /opt/pyenv/3.4.1 /opt/pyenv/3.4.1
-COPY --from=registry.gitlab.com/thecornershop/toolbox:python.3.5.5 /opt/pyenv/3.5.5 /opt/pyenv/3.5.5
-COPY --from=registry.gitlab.com/thecornershop/toolbox:python.3.6.3 /opt/pyenv/3.6.3 /opt/pyenv/3.6.3
-COPY --from=registry.gitlab.com/thecornershop/toolbox:python.3.6.5 /opt/pyenv/3.6.5 /opt/pyenv/3.6.5
-COPY --from=registry.gitlab.com/thecornershop/toolbox:python.3.6.8 /opt/pyenv/3.6.8 /opt/pyenv/3.6.8
-COPY --from=registry.gitlab.com/thecornershop/toolbox:python.3.7.4 /opt/pyenv/3.7.4 /opt/pyenv/3.7.4
+COPY --from=registry.gitlab.com/thecornershop/toolbox:python.2.7.16 /opt/pyenv/versions/2.7.16 /opt/pyenv/versions/2.7.16
+COPY --from=registry.gitlab.com/thecornershop/toolbox:python.3.4.1 /opt/pyenv/versions/3.4.1 /opt/pyenv/versions/3.4.1
+COPY --from=registry.gitlab.com/thecornershop/toolbox:python.3.5.5 /opt/pyenv/versions/3.5.5 /opt/pyenv/versions/3.5.5
+COPY --from=registry.gitlab.com/thecornershop/toolbox:python.3.6.3 /opt/pyenv/versions/3.6.3 /opt/pyenv/versions/3.6.3
+COPY --from=registry.gitlab.com/thecornershop/toolbox:python.3.6.5 /opt/pyenv/versions/3.6.5 /opt/pyenv/versions/3.6.5
+COPY --from=registry.gitlab.com/thecornershop/toolbox:python.3.6.8 /opt/pyenv/versions/3.6.8 /opt/pyenv/versions/3.6.8
+COPY --from=registry.gitlab.com/thecornershop/toolbox:python.3.7.4 /opt/pyenv/versions/3.7.4 /opt/pyenv/versions/3.7.4
 
 COPY --from=registry.gitlab.com/thecornershop/toolbox:ruby.2.3.3 /opt/rubies/2.3.3 /opt/rubies/2.3.3
 COPY --from=registry.gitlab.com/thecornershop/toolbox:ruby.2.4.3 /opt/rubies/2.4.3 /opt/rubies/2.4.3
