@@ -20,6 +20,7 @@ RUN tfenv install 0.11.14
 RUN PATH=/opt/pkenv/bin:$PATH pkenv install 1.2.5
 
 RUN echo 'source /usr/share/chruby/chruby.sh' > /etc/profile.d/chruby.sh
+RUN echo 'source /usr/share/chruby/auto.sh' >> /etc/profile.d/chruby.sh
 RUN echo 'export PATH=/opt/pkenv/bin:$PATH' > /etc/profile.d/pkenv.sh
 RUN echo 'export PYENV_ROOT="/opt/pyenv"' >> /etc/profile.d/pyenv.sh && \
     echo 'eval "$(pyenv init -)"' >> /etc/profile.d/pyenv.sh
