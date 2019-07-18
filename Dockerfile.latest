@@ -8,10 +8,10 @@ COPY --from=registry.gitlab.com/thecornershop/toolbox:python.3.6.3 /opt/pyenv/ve
 COPY --from=registry.gitlab.com/thecornershop/toolbox:python.3.6.8 /opt/pyenv/versions/3.6.8 /opt/pyenv/versions/3.6.8
 COPY --from=registry.gitlab.com/thecornershop/toolbox:python.3.7.4 /opt/pyenv/versions/3.7.4 /opt/pyenv/versions/3.7.4
 
-COPY --from=registry.gitlab.com/thecornershop/toolbox:ruby.2.3.3 /opt/rubies/2.3.3 /opt/rubies/2.3.3
-COPY --from=registry.gitlab.com/thecornershop/toolbox:ruby.2.4.3 /opt/rubies/2.4.3 /opt/rubies/2.4.3
-COPY --from=registry.gitlab.com/thecornershop/toolbox:ruby.2.5.1 /opt/rubies/2.4.3 /opt/rubies/2.5.1
-COPY --from=registry.gitlab.com/thecornershop/toolbox:ruby.2.6.3 /opt/rubies/2.4.3 /opt/rubies/2.6.3
+COPY --from=registry.gitlab.com/thecornershop/toolbox:ruby.2.3.3 /opt/rubies/ruby-2.3.3 /opt/rubies/ruby-2.3.3
+COPY --from=registry.gitlab.com/thecornershop/toolbox:ruby.2.4.3 /opt/rubies/ruby-2.4.3 /opt/rubies/ruby-2.4.3
+COPY --from=registry.gitlab.com/thecornershop/toolbox:ruby.2.5.1 /opt/rubies/ruby-2.4.3 /opt/rubies/ruby-2.5.1
+COPY --from=registry.gitlab.com/thecornershop/toolbox:ruby.2.6.3 /opt/rubies/ruby-2.4.3 /opt/rubies/ruby-2.6.3
 
 
 RUN tfenv install 0.11.13
