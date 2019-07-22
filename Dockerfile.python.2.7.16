@@ -1,4 +1,0 @@
-FROM registry.gitlab.com/thecornershop/toolbox:base
-
-
-RUN MAKEOPTS='-j 5' python-build 2.7.16 /opt/pyenv/versions/2.7.16

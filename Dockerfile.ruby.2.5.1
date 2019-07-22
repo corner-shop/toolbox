@@ -1,8 +1,0 @@
-FROM registry.gitlab.com/thecornershop/toolbox:base
-
-
-
-RUN RUBY_MAKE_OPTS='-j 5' ruby-build 2.5.1 /opt/rubies/ruby-2.5.1
-
-RUN /opt/rubies/ruby-2.5.1/bin/gem install bundler
-

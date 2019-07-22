@@ -1,6 +1,0 @@
-FROM registry.gitlab.com/thecornershop/toolbox:base
-
-RUN RUBY_MAKE_OPTS='-j 5' ruby-build 2.6.3 /opt/rubies/ruby-2.6.3
-
-RUN /opt/rubies/ruby-2.6.3/bin/gem install bundler
-
