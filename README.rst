@@ -30,7 +30,7 @@ Define it as a bash function: ::
              -v $PWD:/workdir \
              -e UID=`id -u` \
              -e GID=`id -g` \
-             registry.gitlab.com/thecornershop/toolbox \
+             cornershop/toolbox \
              $*
       }
 
@@ -60,5 +60,3 @@ for packer, using `pkenv` ::
 for terraform, using `tfenv` ::
 
    tfenv install 0.11.14
-
-
