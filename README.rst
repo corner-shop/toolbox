@@ -36,7 +36,7 @@ Define it as a bash function: ::
 
 Then execute as: ::
 
-      tooboox bash
+      tooboox
 
 To install additional software:
 
