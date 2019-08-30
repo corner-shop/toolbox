@@ -3,7 +3,7 @@
 set -e
 usermod -u ${UID} user
 groupmod -g ${GID} user
-groupmod -G tty,users,docker,git user
+usermod -G tty,users,docker,git user
 chown -R user:user /home/user
 
 export USER=user
