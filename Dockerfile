@@ -38,6 +38,7 @@ RUN pacman -Syyu --noconfirm --noprogressbar && \
     jdk8-openjdk \
     tmuxp \
     tmux \
+    fzf \
     npm \
     wget &&  \
     pacman -Scc --noconfirm
