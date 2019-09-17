@@ -60,3 +60,9 @@ for packer, using `pkenv` ::
 for terraform, using `tfenv` ::
 
    tfenv install 0.11.14
+
+
+To quickly bootstrap all your required packages you can run an operation like:
+
+   toolbox
+   curl https://raw.githubusercontent.com/corner-shop/toolbox/master/bootstrap.sh | bash
