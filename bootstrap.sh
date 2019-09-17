@@ -21,8 +21,8 @@ done
 
 cd /home/user/.rubies
 BUNDLES="
-2.3.3
-2.6.3
+ruby-2.3.3
+ruby-2.6.3
 "
 for BUNDLE in ${BUNDLES}
 do
