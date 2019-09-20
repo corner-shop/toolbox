@@ -71,7 +71,11 @@ RUN pacget --noconfirm --noedit chruby
 RUN pacget --noconfirm --noedit ruby-build
 RUN pacget --noconfirm --noedit pyenv
 RUN pacget --noconfirm --noedit gcc6
+RUN echo 1 | yay -Y --removemake -nodiffmenu --noeditmenu --nouseask --nocleanmenu --noupgrademenu --noconfirm  global
 USER root
+
+RUN npm install --global vscode-html-languageserver-bin
+RUN pacman -S --noconfirm groovy
 
 RUN echo "alias svim='vim -u ~/.SpaceVim/vimrc'" > /etc/profile.d/svim.sh
 RUN echo 'source /usr/share/chruby/chruby.sh' > /etc/profile.d/chruby.sh
