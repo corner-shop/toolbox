@@ -89,9 +89,16 @@ RUN echo 'export PATH=/home/user/.pkenv/bin:$PATH' > /etc/profile.d/pkenv.sh
 RUN echo 'export PYENV_ROOT="/home/user/.pyenv"' >> /etc/profile.d/pyenv.sh && \
     echo 'eval "$(pyenv init -)"' >> /etc/profile.d/pyenv.sh
 
-RUN  virtualenv /opt/aws-profile && \
-	/opt/aws-profile/bin/pip3 install aws-profile && \
-	ln -s /opt/aws-profile/bin/aws-profile /usr/bin
+RUN  virtualenv /opt/virtualenv && \
+	/opt/virtualenv/bin/pip3 install aws-profile && \
+	/opt/virtualenv/bin/pip3 install flake8 && \
+	/opt/virtualenv/bin/pip3 install yapf  && \
+	/opt/virtualenv/bin/pip3 install autoflake  && \
+	/opt/virtualenv/bin/pip3 install isort  && \
+	/opt/virtualenv/bin/pip3 install coverage  && \
+	/opt/virtualenv/bin/pip3 install black  && \
+	/opt/virtualenv/bin/pip3 install bandit  && \
+	ls /opt/virtualenv/bin | xargs -i ln -s /opt/virtualenv/bin/{} /usr/bin/{}
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
