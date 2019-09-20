@@ -74,12 +74,13 @@ RUN pacget --noconfirm --noedit gcc6
 RUN echo 1 | yay -Y --removemake -nodiffmenu --noeditmenu --nouseask --nocleanmenu --noupgrademenu --noconfirm  global
 USER root
 
-RUN npm install --global vscode-html-languageserver-bin \
-	npm -g install remark
-	npm -g install remark-cli
-	npm -g install remark-stringify
-	npm -g install remark-frontmatter
+RUN npm install --global vscode-html-languageserver-bin && \
+	npm -g install remark && \
+	npm -g install remark-cli && \
+	npm -g install remark-stringify && \
+	npm -g install remark-frontmatter && \
 	npm -g install wcwidth
+
 RUN pacman -S --noconfirm groovy
 
 RUN echo "alias svim='vim -u ~/.SpaceVim/vimrc'" > /etc/profile.d/svim.sh
