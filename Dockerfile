@@ -73,6 +73,7 @@ RUN pacget --noconfirm --noedit pyenv
 RUN pacget --noconfirm --noedit gcc6
 USER root
 
+RUN echo "alias svim='vim -u ~/.SpaceVim/vimrc'" > /etc/profile.d/svim.sh
 RUN echo 'source /usr/share/chruby/chruby.sh' > /etc/profile.d/chruby.sh
 RUN echo 'source /usr/share/chruby/auto.sh' >> /etc/profile.d/chruby.sh
 RUN echo 'export PATH=/home/user/.pkenv/bin:$PATH' > /etc/profile.d/pkenv.sh

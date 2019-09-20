@@ -22,6 +22,9 @@ Define it as a bash function: ::
              -v $HOME/.aws:/home/user/.aws \
              -v $HOME/.vimrc:/home/user/.vimrc \
              -v $HOME/.toolboox/vim:/home/user/.vim \
+             -v $HOME/.toolboox/.SpaceVim/:/home/user/.SpaceVim/ \
+             -v $HOME/.toolboox/.SpaceVim.d/:/home/user/.SpaceVim.d/ \
+             -v $HOME/.toolbox/.cache/vimfiles:/home/user/.cache/vimfiles \
              -v $HOME/.ctags.d:/home/user/.ctags.d \
              -v $HOME/.toolboox/pyenv:/home/user/.pyenv/versions \
              -v $HOME/.toolboox/rubies:/home/user/.rubies \
