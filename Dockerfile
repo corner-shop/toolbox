@@ -87,6 +87,7 @@ RUN echo "alias svim='vim -u ~/.SpaceVim/vimrc'" > /etc/profile.d/svim.sh
 RUN echo 'source /usr/share/chruby/chruby.sh' > /etc/profile.d/chruby.sh
 RUN echo 'source /usr/share/chruby/auto.sh' >> /etc/profile.d/chruby.sh
 RUN echo 'export PATH=/home/user/.pkenv/bin:$PATH' > /etc/profile.d/pkenv.sh
+RUN echo 'export PATH=/usr/local/bin:$PATH' > /etc/profile.d/user-local-bin.sh
 RUN echo 'export PYENV_ROOT="/home/user/.pyenv"' >> /etc/profile.d/pyenv.sh && \
     echo 'eval "$(pyenv init -)"' >> /etc/profile.d/pyenv.sh
 
@@ -99,7 +100,7 @@ RUN  virtualenv /opt/virtualenv && \
 	/opt/virtualenv/bin/pip3 install coverage  && \
 	/opt/virtualenv/bin/pip3 install black  && \
 	/opt/virtualenv/bin/pip3 install bandit  && \
-	sh -c 'ls /opt/virtualenv/bin | xargs -i ln -s /opt/virtualenv/bin/{} /usr/bin/{}'
+	sh -c 'ls /opt/virtualenv/bin | xargs -i ln -s /opt/virtualenv/bin/{} /usr/local/bin/{}'
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
