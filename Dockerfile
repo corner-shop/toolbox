@@ -93,6 +93,7 @@ RUN echo 'export PYENV_ROOT="/home/user/.pyenv"' >> /etc/profile.d/pyenv.sh && \
 
 RUN  virtualenv /opt/virtualenv && \
 	/opt/virtualenv/bin/pip3 install aws-profile && \
+	/opt/virtualenv/bin/pip3 install pylint && \
 	/opt/virtualenv/bin/pip3 install flake8 && \
 	/opt/virtualenv/bin/pip3 install yapf  && \
 	/opt/virtualenv/bin/pip3 install autoflake  && \
