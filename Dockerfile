@@ -99,7 +99,7 @@ RUN  virtualenv /opt/virtualenv && \
 	/opt/virtualenv/bin/pip3 install coverage  && \
 	/opt/virtualenv/bin/pip3 install black  && \
 	/opt/virtualenv/bin/pip3 install bandit  && \
-	ls /opt/virtualenv/bin | xargs -i ln -s /opt/virtualenv/bin/{} /usr/bin/{}
+	sh -c 'ls /opt/virtualenv/bin | xargs -i ln -s /opt/virtualenv/bin/{} /usr/bin/{}'
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
