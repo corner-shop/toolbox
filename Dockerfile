@@ -101,6 +101,7 @@ RUN  virtualenv /opt/virtualenv && \
 	/opt/virtualenv/bin/pip3 install coverage  && \
 	/opt/virtualenv/bin/pip3 install black  && \
 	/opt/virtualenv/bin/pip3 install bandit  && \
+	/opt/virtualenv/bin/pip3 install python-pygments  && \
 	sh -c 'ls /opt/virtualenv/bin | xargs -i ln -s /opt/virtualenv/bin/{} /usr/local/bin/{}'
 
 COPY entrypoint.sh /entrypoint.sh
