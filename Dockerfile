@@ -71,7 +71,7 @@ RUN pacget --noconfirm --noedit chruby
 RUN pacget --noconfirm --noedit ruby-build
 RUN pacget --noconfirm --noedit pyenv
 RUN pacget --noconfirm --noedit gcc6
-RUN echo 1 | yay -Y --removemake -nodiffmenu --noeditmenu --nouseask --nocleanmenu --noupgrademenu --noconfirm  global
+RUN echo 1 | yay -Y --removemake -nodiffmenu --noeditmenu --nouseask --nocleanmenu --noupgrademenu --noconfirm  aur/global
 USER root
 
 RUN npm install --global vscode-html-languageserver-bin && \
