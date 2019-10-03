@@ -1,5 +1,5 @@
 
-CI_REGISTRY := cornershop
+CI_REGISTRY := registry.gitlab.com/thecornershop
 CI_IMAGE := toolbox
 
 build:
