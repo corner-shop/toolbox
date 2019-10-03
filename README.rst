@@ -39,7 +39,7 @@ Define it as a bash function: ::
 
 Then execute as: ::
 
-      tooboox
+      toolboox
 
 To install additional software:
 
