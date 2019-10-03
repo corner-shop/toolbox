@@ -33,7 +33,7 @@ Define it as a bash function: ::
              -v $PWD:/workdir \
              -e UID=`id -u` \
              -e GID=`id -g` \
-             cornershop/toolbox \
+             registry.gitlab.com/thecornershop/toolbox \
              $*
       }
 
