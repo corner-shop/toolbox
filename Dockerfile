@@ -71,8 +71,19 @@ RUN pacget --noconfirm --noedit chruby
 RUN pacget --noconfirm --noedit ruby-build
 RUN pacget --noconfirm --noedit pyenv
 RUN pacget --noconfirm --noedit gcc6
-RUN pacget --noconfirm --noedit global
+RUN pacget --noconfirm --noedit ruby-install
+
+RUN wget -O /home/user/.globalrc https://fossies.org/linux/misc/global-6.6.3.tar.gz/global-6.6.3/gtags.conf?m=t
+
 USER root
+
+RUN wget http://tamacom.com/global/global-6.6.3.tar.gz  && \
+	tar xzf global-6.6.3.tar.gz  && \
+	cd global-6.6.3 && \
+	./configure --with-exuberant-ctags=/usr/bin/ctags && \
+	make && \
+	make install && \
+	rm -rf global*
 
 RUN npm install --global vscode-html-languageserver-bin && \
 	npm -g install remark && \
@@ -84,6 +95,7 @@ RUN npm install --global vscode-html-languageserver-bin && \
 RUN pacman -S --noconfirm groovy
 
 RUN echo "alias svim='vim -u ~/.SpaceVim/vimrc'" > /etc/profile.d/svim.sh
+RUN echo "export GTAGSLABEL=pygments" > /etc/profile.d/gtags.sh
 RUN echo 'source /usr/share/chruby/chruby.sh' > /etc/profile.d/chruby.sh
 RUN echo 'source /usr/share/chruby/auto.sh' >> /etc/profile.d/chruby.sh
 RUN echo 'export PATH=/home/user/.pkenv/bin:$PATH' > /etc/profile.d/pkenv.sh
@@ -102,7 +114,10 @@ RUN  virtualenv /opt/virtualenv && \
 	/opt/virtualenv/bin/pip3 install black  && \
 	/opt/virtualenv/bin/pip3 install bandit  && \
 	/opt/virtualenv/bin/pip3 install pygments  && \
+	/opt/virtualenv/bin/pip3 install pynvim  && \
+	/opt/virtualenv/bin/pip3 install neovim  && \
 	sh -c 'ls /opt/virtualenv/bin | xargs -i ln -s /opt/virtualenv/bin/{} /usr/local/bin/{}'
+
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
