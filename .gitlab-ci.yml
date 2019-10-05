@@ -31,6 +31,7 @@ toolbox-gcc6:
     - master
   script:
     - make toolbox-gcc6
+  timeout: 4h
 
 toolbox-tools:
   stage: Build toolbox/tools
