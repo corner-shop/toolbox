@@ -62,4 +62,3 @@ USER user
 
 RUN echo 1 | yay -Y --removemake -nodiffmenu --noeditmenu --nouseask --nocleanmenu --noupgrademenu --noconfirm  pod2man
 RUN echo 1 | yay -Y --removemake -nodiffmenu --noeditmenu --nouseask --nocleanmenu --noupgrademenu --noconfirm  pacget
-RUN pacget --noconfirm --noedit gcc6
