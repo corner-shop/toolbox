@@ -1,0 +1,4 @@
+FROM registry.gitlab.com/thecornershop/toolbox:base
+
+USER user
+RUN pacget --noconfirm --noedit gcc6

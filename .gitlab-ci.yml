@@ -13,11 +13,35 @@ before_script:
   - apk add make
 
 stages:
-    - Build latest image
+    - Build toolbox/base
+    - Build toolbox/gcc6
+    - Build toolbox/tools
+    - Build toolbox/latest
 
-build:
-  stage: Build latest image
+toolbox-base:
+  stage: Build toolbox/base
   only:
     - master
   script:
-    - make
+    - make toolbox-base
+
+toolbox-gcc6:
+  stage: Build toolbox/gcc6
+  only:
+    - master
+  script:
+    - make toolbox-gcc6
+
+toolbox-tools:
+  stage: Build toolbox/tools
+  only:
+    - master
+  script:
+    - make toolbox-tools
+
+toolbox-latest:
+  stage: Build toolbox/latest
+  only:
+    - master
+  script:
+    - make toolbox-latest
