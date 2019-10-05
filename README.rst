@@ -1,6 +1,10 @@
 TOOLBOX
 ##########
 
+The main repository for this project can be found at:
+https://gitlab.com/theCornerShop/toolbox
+
+
 A docker image containing all the tools you could possibly ever need.
 
 Included:
