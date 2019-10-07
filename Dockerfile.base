@@ -41,6 +41,7 @@ RUN pacman -Syyu --noconfirm --noprogressbar && \
     tmux \
     fzf \
     npm \
+    openldap \
     wget &&  \
     pacman -Scc --noconfirm
 
