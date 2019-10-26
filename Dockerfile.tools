@@ -58,6 +58,14 @@ RUN  virtualenv /opt/virtualenv && \
 	/opt/virtualenv/bin/pip3 install pygments  && \
 	/opt/virtualenv/bin/pip3 install pynvim  && \
 	/opt/virtualenv/bin/pip3 install neovim  && \
+	/opt/virtualenv/bin/pip3 install pipenv  && \
+	/opt/virtualenv/bin/pip3 install poetry  && \
+	/opt/virtualenv/bin/pip3 install poetry-setup  && \
+	/opt/virtualenv/bin/pip3 install poetry-org  && \
+	/opt/virtualenv/bin/pip3 install poetry-version  && \
+	/opt/virtualenv/bin/pip3 install poetry-data-manager  && \
+	/opt/virtualenv/bin/pip3 install poetry-dynamic-versioning  && \
+	/opt/virtualenv/bin/pip3 install poetry-plus  && \
+	/opt/virtualenv/bin/pip3 install poetrify  && \
+	/opt/virtualenv/bin/pip3 install setup2poetry  && \
 	sh -c 'ls /opt/virtualenv/bin | xargs -i ln -s /opt/virtualenv/bin/{} /usr/local/bin/{}'
-
-
