@@ -1,25 +1,29 @@
 FROM registry.gitlab.com/thecornershop/toolbox:gcc6
 
-USER user
-RUN git clone https://github.com/iamhsa/pkenv.git /home/user/.pkenv && cd /home/user/.pkenv && git checkout 9f0567b331d361c008f41865eecc9ee01927ee62
-RUN git clone https://github.com/tfutils/tfenv.git /home/user/.tfenv && cd /home/user/.tfenv && git checkout 4475b714e0291d20727a3e2946f3b3e2136df059
+RUN su - user -c '\
+      git clone https://github.com/iamhsa/pkenv.git /home/user/.pkenv && cd /home/user/.pkenv && git checkout 9f0567b331d361c008f41865eecc9ee01927ee62 && \
+      git clone https://github.com/tfutils/tfenv.git /home/user/.tfenv && cd /home/user/.tfenv && git checkout 4475b714e0291d20727a3e2946f3b3e2136df059 \
+    ' && \
+    ln -s /home/user/.pkenv/bin/* /usr/local/bin && \
+    ln -s /home/user/.tfenv/bin/* /usr/local/bin
 
-USER root
-RUN ln -s /home/user/.pkenv/bin/* /usr/local/bin
-RUN ln -s /home/user/.tfenv/bin/* /usr/local/bin
+RUN pacman -Syy  --noconfirm --noprogressbar && \
+    su - user -c '\
+      export EDITOR=vim && \
+      pacget --noconfirm --noedit suexec && \
+      pacget --noconfirm --noedit chruby && \
+      pacget --noconfirm --noedit ruby-build && \
+      pacget --noconfirm --noedit pyenv && \
+      pacget --noconfirm --noedit ruby-install && \
+      pacget --noconfirm --noedit poetry && \
+      pacget --noconfirm --noedit python-pipenv \
+    ' && \
+    pacman -Scc --noconfirm
 
-USER user
-RUN pacget --noconfirm --noedit suexec
-RUN pacget --noconfirm --noedit chruby
-RUN pacget --noconfirm --noedit ruby-build
-RUN pacget --noconfirm --noedit pyenv
-RUN pacget --noconfirm --noedit ruby-install
-RUN pacget --noconfirm --noedit poetry
-RUN pacget --noconfirm --noedit python-pipenv
 
-RUN wget -O /home/user/.globalrc https://fossies.org/linux/misc/global-6.6.3.tar.gz/global-6.6.3/gtags.conf?m=t
-
-USER root
+RUN su - user -c '\
+      wget -O /home/user/.globalrc https://fossies.org/linux/misc/global-6.6.3.tar.gz/global-6.6.3/gtags.conf?m=t \
+     '
 
 RUN wget http://tamacom.com/global/global-6.6.3.tar.gz  && \
 	tar xzf global-6.6.3.tar.gz  && \
@@ -36,15 +40,14 @@ RUN npm install --global vscode-html-languageserver-bin && \
 	npm -g install remark-frontmatter && \
 	npm -g install wcwidth
 
-RUN pacman -S --noconfirm groovy
 
-RUN echo "alias svim='vim -u ~/.SpaceVim/vimrc'" > /etc/profile.d/svim.sh
-RUN echo "export GTAGSLABEL=pygments" > /etc/profile.d/gtags.sh
-RUN echo 'source /usr/share/chruby/chruby.sh' > /etc/profile.d/chruby.sh
-RUN echo 'source /usr/share/chruby/auto.sh' >> /etc/profile.d/chruby.sh
-RUN echo 'export PATH=/home/user/.pkenv/bin:$PATH' > /etc/profile.d/pkenv.sh
-RUN echo 'export PATH=/usr/local/bin:$PATH' > /etc/profile.d/user-local-bin.sh
-RUN echo 'export PYENV_ROOT="/home/user/.pyenv"' >> /etc/profile.d/pyenv.sh && \
+RUN echo "alias svim='vim -u ~/.SpaceVim/vimrc'" > /etc/profile.d/svim.sh && \
+    echo "export GTAGSLABEL=pygments" > /etc/profile.d/gtags.sh && \
+    echo 'source /usr/share/chruby/chruby.sh' > /etc/profile.d/chruby.sh && \
+    echo 'source /usr/share/chruby/auto.sh' >> /etc/profile.d/chruby.sh && \
+    echo 'export PATH=/home/user/.pkenv/bin:$PATH' > /etc/profile.d/pkenv.sh && \
+    echo 'export PATH=/usr/local/bin:$PATH' > /etc/profile.d/user-local-bin.sh && \
+    echo 'export PYENV_ROOT="/home/user/.pyenv"' >> /etc/profile.d/pyenv.sh && \
     echo 'eval "$(pyenv init -)"' >> /etc/profile.d/pyenv.sh
 
 RUN  virtualenv /opt/virtualenv && \

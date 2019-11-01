@@ -1,4 +1,7 @@
 FROM registry.gitlab.com/thecornershop/toolbox:base
 
-USER user
-RUN pacget --noconfirm --noedit gcc6
+RUN pacman -Syy --noconfirm --noprogressbar && \
+    su - user -c '\
+      EDITOR=vim pacget --noconfirm --noedit gcc6 > /dev/null \
+      ' && \
+     pacman -Scc --noconfirm
