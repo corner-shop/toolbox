@@ -21,24 +21,30 @@ Included:
 Define it as a bash function: ::
 
       function toolbox() {
-          docker run -it \
-             -v $HOME/.ssh:/home/user/.ssh \
-             -v $HOME/.aws:/home/user/.aws \
-             -v $HOME/.vimrc:/home/user/.vimrc \
-             -v $HOME/.toolboox/vim:/home/user/.vim \
-             -v $HOME/.toolboox/.SpaceVim/:/home/user/.SpaceVim/ \
-             -v $HOME/.toolboox/.SpaceVim.d/:/home/user/.SpaceVim.d/ \
-             -v $HOME/.toolbox/.cache/vimfiles:/home/user/.cache/vimfiles \
-             -v $HOME/.ctags.d:/home/user/.ctags.d \
-             -v $HOME/.toolboox/pyenv:/home/user/.pyenv/versions \
-             -v $HOME/.toolboox/rubies:/home/user/.rubies \
-             -v $HOME/.toolboox/tfenv:/home/user/.tfenv/versions \
-             -v $HOME/.toolboox/pkenv:/home/user/.pkenv/versions \
-             -v $PWD:/workdir \
-             -e UID=`id -u` \
-             -e GID=`id -g` \
-             registry.gitlab.com/thecornershop/toolbox \
-             $*
+docker run -it \
+  -v $HOME/.ssh:/home/user/.ssh \
+  -v $HOME/.gitconfig:/home/user/.gitconfig \
+  -v $HOME/.gitignore:/home/user/.gitignore \
+  -v $HOME/.gnupg:/home/user/.gnupg \
+  -v $HOME/.aws:/home/user/.aws \
+  -v $HOME/.vimrc:/home/user/.vimrc \
+  -v $HOME/.tmux:/home/user/.tmux \
+  -v $HOME/.tmux.conf:/home/user/.tmux.conf \
+  -v $HOME/.toolbox/vim:/home/user/.vim \
+  -v $HOME/.toolbox/gems:/home/user/.gem \
+  -v $HOME/.toolbox/SpaceVim:/home/user/.SpaceVim \
+  -v $HOME/.toolbox/SpaceVim.d:/home/user/.SpaceVim.d \
+  -v $HOME/.toolbox/.cache/vimfiles:/home/user/.cache/vimfiles \
+  -v $HOME/.ctags.d:/home/user/.ctags.d \
+  -v $HOME/.toolbox/pyenv:/home/user/.pyenv/versions \
+  -v $HOME/.toolbox/rubies:/home/user/.rubies \
+  -v $HOME/.toolbox/tfenv:/home/user/.tfenv/versions \
+  -v $HOME/.toolbox/pkenv:/home/user/.pkenv/versions \
+  -v $PWD:/workdir \
+  -e UID=`id -u` \
+  -e GID=`id -g` \
+registry.gitlab.com/thecornershop/toolbox $*
+
       }
 
 Then execute as: ::
