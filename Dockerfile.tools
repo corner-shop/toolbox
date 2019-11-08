@@ -66,3 +66,11 @@ RUN  virtualenv /opt/virtualenv && \
 	/opt/virtualenv/bin/pip3 install pynvim  && \
 	/opt/virtualenv/bin/pip3 install neovim  && \
 	sh -c 'ls /opt/virtualenv/bin | xargs -i ln -s /opt/virtualenv/bin/{} /usr/local/bin/{}'
+
+RUN cd /usr/bin && \
+	curl -L https://github.com/Praqma/helmsman/releases/download/v1.13.0/helmsman_1.13.0_linux_amd64.tar.gz | tar xvzf - helmsman && \
+	curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl && \
+	  chmod +x kubectl && \
+	cd /tmp && \
+	  curl -L https://get.helm.sh/helm-v2.14.1-linux-amd64.tar.gz | tar xvzf - linux-amd64/helm && \
+	  mv linux-amd64/helm /usr/bin/helm
