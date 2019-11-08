@@ -18,6 +18,7 @@ RUN pacman -Syy  --noconfirm --noprogressbar && \
       pacget --noconfirm --noedit poetry && \
       pacget --noconfirm --noedit python-pipenv \
       pacget --noconfirm --noedit tmate \
+      pacget --noconfirm --noedit direnv \
     ' && \
     pacman -Scc --noconfirm
 
