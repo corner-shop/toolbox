@@ -4,7 +4,7 @@ set -e
 usermod -u ${UID} user
 groupmod -g ${GID} user
 usermod -G tty,users,docker,git user
-chown -R user:user /home/user
+find /home/user -xdev  \! -user user -exec chown user:user {} \;
 
 export USER=user
 
