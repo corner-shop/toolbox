@@ -2,6 +2,6 @@ FROM registry.gitlab.com/thecornershop/toolbox:base
 
 RUN pacman -Syy --noconfirm --noprogressbar && \
     su - user -c '\
-      EDITOR=vim pacget --noconfirm --noedit gcc6 > /dev/null \
+      NB_CORES=`grep -c "^processor" /proc/cpuinfo` MAKEFLAGS="-j$((NB_CORES+1)) -l${NB_CORES}" EDITOR=vim pacget --noconfirm --noedit gcc6 > /dev/null \
       ' && \
      pacman -Scc --noconfirm
