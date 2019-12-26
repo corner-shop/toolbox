@@ -24,7 +24,7 @@ RUN pacman -Syy  --noconfirm --noprogressbar && \
 
 
 RUN su - user -c '\
-      wget -O /home/user/.globalrc https://fossies.org/linux/misc/global-6.6.3.tar.gz/global-6.6.3/gtags.conf?m=t \
+      wget -O /home/user/.globalrc https://fossies.org/linux/misc/legacy/global-6.6.3.tar.gz/global-6.6.3/gtags.conf?m=t \
      '
 
 RUN wget http://tamacom.com/global/global-6.6.3.tar.gz  && \
