@@ -13,6 +13,7 @@ ENV LC_CTYPE 'en_US.UTF-8'
 # Base installation
 RUN pacman -Syyu --noconfirm --noprogressbar && \
     pacman -S --noconfirm --needed --noprogressbar \
+    base \
     base-devel \
     ttf-roboto \
     pyalpm \
@@ -21,7 +22,6 @@ RUN pacman -Syyu --noconfirm --noprogressbar && \
     ctags \
     ack \
     the_silver_searcher \
-    gconf \
     sharutils \
     openssl-1.0 \
     python-pip \
