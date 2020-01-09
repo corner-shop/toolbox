@@ -1,9 +1,17 @@
 FROM registry.gitlab.com/thecornershop/toolbox:tools
 
-USER root
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-ENTRYPOINT ["/entrypoint.sh"]
-CMD '/usr/bin/bash -l'
+ARG DOCKER_USER_ID
+ARG DOCKER_GROUP_ID
+
+RUN groupmod -g $DOCKER_GROUP_ID user && \
+    usermod -u $DOCKER_USER_ID user && \
+    usermod -G tty,users,docker,git user && \
+    chown -R user:user /home/user
+
+USER user
+ENV USER user
+ENV HOME /home/user
 
 WORKDIR /workdir
+
+CMD ["/usr/bin/bash"]

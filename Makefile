@@ -1,5 +1,4 @@
 .DEFAULT_GOAL := build
-
 CI_REGISTRY := registry.gitlab.com/thecornershop
 CI_IMAGE := toolbox
 
@@ -22,7 +21,10 @@ toolbox-tools:
 
 toolbox-latest:
 	docker pull $(CI_REGISTRY)/$(CI_IMAGE):latest || true
-	docker build -f Dockerfile.latest -t $(CI_REGISTRY)/$(CI_IMAGE):latest .
+	docker build \
+		--build-arg DOCKER_USER_ID=`id -u` \
+		--build-arg DOCKER_GROUP_ID=`id -g` \
+		-f Dockerfile.latest -t $(CI_REGISTRY)/$(CI_IMAGE):latest .
 	docker push $(CI_REGISTRY)/$(CI_IMAGE):latest
 
 build: toolbox-base toolbox-gcc6 toolbox-tools toolbox-latest

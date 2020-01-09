@@ -24,6 +24,8 @@ RUN pacman -Syyu --noconfirm --noprogressbar && \
     the_silver_searcher \
     sharutils \
     openssl-1.0 \
+    python2-pip \
+    python2-virtualenv \
     python-pip \
     python-virtualenv \
     readline \

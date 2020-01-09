@@ -52,20 +52,34 @@ RUN echo "alias svim='vim -u ~/.SpaceVim/vimrc'" > /etc/profile.d/svim.sh && \
     echo 'export PYENV_ROOT="/home/user/.pyenv"' >> /etc/profile.d/pyenv.sh && \
     echo 'eval "$(pyenv init -)"' >> /etc/profile.d/pyenv.sh
 
-RUN  virtualenv /opt/virtualenv && \
-	/opt/virtualenv/bin/pip3 install aws-profile && \
-	/opt/virtualenv/bin/pip3 install pylint && \
-	/opt/virtualenv/bin/pip3 install flake8 && \
-	/opt/virtualenv/bin/pip3 install yapf  && \
-	/opt/virtualenv/bin/pip3 install autoflake  && \
-	/opt/virtualenv/bin/pip3 install isort  && \
-	/opt/virtualenv/bin/pip3 install coverage  && \
-	/opt/virtualenv/bin/pip3 install black  && \
-	/opt/virtualenv/bin/pip3 install bandit  && \
-	/opt/virtualenv/bin/pip3 install pygments  && \
-	/opt/virtualenv/bin/pip3 install pynvim  && \
-	/opt/virtualenv/bin/pip3 install neovim  && \
-	sh -c 'ls /opt/virtualenv/bin | xargs -i ln -s /opt/virtualenv/bin/{} /usr/local/bin/{}'
+RUN  virtualenv2 /opt/virtualenv2 && \
+	/opt/virtualenv2/bin/pip2 install aws-profile && \
+	/opt/virtualenv2/bin/pip2 install pylint && \
+	/opt/virtualenv2/bin/pip2 install flake8 && \
+	/opt/virtualenv2/bin/pip2 install yapf  && \
+	/opt/virtualenv2/bin/pip2 install autoflake  && \
+	/opt/virtualenv2/bin/pip2 install isort  && \
+	/opt/virtualenv2/bin/pip2 install coverage  && \
+	/opt/virtualenv2/bin/pip2 install bandit  && \
+	/opt/virtualenv2/bin/pip2 install pygments  && \
+	/opt/virtualenv2/bin/pip2 install pynvim  && \
+	/opt/virtualenv2/bin/pip2 install neovim
+
+RUN  virtualenv3 /opt/virtualenv3 && \
+	/opt/virtualenv3/bin/pip3 install aws-profile && \
+	/opt/virtualenv3/bin/pip3 install pylint && \
+	/opt/virtualenv3/bin/pip3 install flake8 && \
+	/opt/virtualenv3/bin/pip3 install yapf  && \
+	/opt/virtualenv3/bin/pip3 install autoflake  && \
+	/opt/virtualenv3/bin/pip3 install isort  && \
+	/opt/virtualenv3/bin/pip3 install coverage  && \
+	/opt/virtualenv3/bin/pip3 install black  && \
+	/opt/virtualenv3/bin/pip3 install bandit  && \
+	/opt/virtualenv3/bin/pip3 install pygments  && \
+	/opt/virtualenv3/bin/pip3 install pynvim  && \
+	/opt/virtualenv3/bin/pip3 install neovim
+
+ENV PATH $PATH:/opt/virtualenv3/bin:/opt/virtualenv2/bin
 
 RUN cd /usr/bin && \
 	curl -L https://github.com/Praqma/helmsman/releases/download/v1.13.0/helmsman_1.13.0_linux_amd64.tar.gz | tar xvzf - helmsman && \
@@ -74,3 +88,15 @@ RUN cd /usr/bin && \
 	cd /tmp && \
 	  curl -L https://get.helm.sh/helm-v2.14.1-linux-amd64.tar.gz | tar xvzf - linux-amd64/helm && \
 	  mv linux-amd64/helm /usr/bin/helm
+
+
+RUN git clone git://git.savannah.gnu.org/gawk.git && \
+	cd gawk && \
+	git checkout gawk-4.2.1 && \
+	 ./bootstrap.sh && \
+	./configure --prefix=/opt/gawk4 && \
+	make && \
+	make check && \
+	make install && \
+	cd - && \
+	rm -rf gawk
