@@ -32,6 +32,8 @@ RUN pacman -Syyu --noconfirm --noprogressbar && \
     keybase \
     aws-cli \
     openssh \
+    postgresql \
+    mariadb \
     docker \
     vim \
     cmake \
