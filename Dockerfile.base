@@ -64,9 +64,3 @@ RUN /usr/sbin/groupadd --system sudo && \
     /usr/sbin/sed -i -e "s/Defaults    requiretty.*/ #Defaults    requiretty/g" /etc/sudoers && \
     /usr/sbin/echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
-RUN pacman -Syy  --noconfirm --noprogressbar && \
-    su - user -c '\
-     echo 1 | yay -Y --removemake -nodiffmenu --noeditmenu --nouseask --nocleanmenu --noupgrademenu --noconfirm  pod2man && \
-     echo 1 | yay -Y --removemake -nodiffmenu --noeditmenu --nouseask --nocleanmenu --noupgrademenu --noconfirm  pacget \
-     ' && \
-     pacman -Scc --noconfirm

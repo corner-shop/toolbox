@@ -10,18 +10,11 @@ RUN su - user -c '\
 RUN pacman -Syy  --noconfirm --noprogressbar && \
     su - user -c '\
       export EDITOR=vim && \
-      pacget --noconfirm --noedit suexec && \
-      pacget --noconfirm --noedit chruby && \
-      pacget --noconfirm --noedit ruby-build && \
-      pacget --noconfirm --noedit pyenv && \
-      pacget --noconfirm --noedit ruby-install && \
-      pacget --noconfirm --noedit poetry && \
-      pacget --noconfirm --noedit python-pipenv \
-      pacget --noconfirm --noedit tmate \
-      pacget --noconfirm --noedit direnv \
-    ' && \
+      for pkg in suexec chruby ruby-build pyenv ruby-install poetry python-pipenv tmate direnv; do \
+        echo 1 | NB_CORES=`grep -c "^processor" /proc/cpuinfo` MAKEFLAGS="-j$((NB_CORES+1)) -l${NB_CORES}" EDITOR=vim \
+          yay --removemake -nodiffmenu --noeditmenu --nouseask --nocleanmenu --noupgrademenu --noconfirm  --search ${pkg} > /dev/null; \
+      done' && \
     pacman -Scc --noconfirm
-
 
 RUN su - user -c '\
       wget -O /home/user/.globalrc https://fossies.org/linux/misc/legacy/global-6.6.3.tar.gz/global-6.6.3/gtags.conf?m=t \
