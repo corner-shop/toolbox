@@ -3,7 +3,7 @@ FROM registry.gitlab.com/thecornershop/toolbox:tools
 ARG DOCKER_USER_ID
 ARG DOCKER_GROUP_ID
 
-RUN [ `id -u ` == 0 ] || (groupmod -g $DOCKER_GROUP_ID user && \
+RUN [ $DOCKER_USER_ID == 0 ] || (groupmod -g $DOCKER_GROUP_ID user && \
     usermod -u $DOCKER_USER_ID user ) && \
     usermod -G tty,users,docker,git user && \
     chown -R user:user /home/user
