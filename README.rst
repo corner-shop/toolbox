@@ -23,7 +23,7 @@ To install:
 
 2. Run ::
 
-      make
+      make toolbox-latest
 
 Then define it as a bash function: ::
 
