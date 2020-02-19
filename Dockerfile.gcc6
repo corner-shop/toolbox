@@ -3,5 +3,5 @@ FROM registry.gitlab.com/thecornershop/toolbox:base
 RUN pacman -Syy --noconfirm --noprogressbar && \
     su - user -c '\
       echo 1 | NB_CORES=`grep -c "^processor" /proc/cpuinfo` MAKEFLAGS="-j$((NB_CORES+1)) -l${NB_CORES}" EDITOR=vim \
-      yay --removemake -nodiffmenu --noeditmenu --nouseask --nocleanmenu --noupgrademenu --noconfirm  --search gcc6 2> /dev/null' && \
+      yay --removemake -nodiffmenu --noeditmenu --nouseask --nocleanmenu --noupgrademenu --noconfirm  --search gcc6 >/dev/null 2>&1' && \
      pacman -Scc --noconfirm
