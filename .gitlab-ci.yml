@@ -4,7 +4,7 @@
   - docker:dind
   variables:
     DOCKER_DRIVER: overlay2
-    DOCKER_HOST: tcp://localhost:2375
+    DOCKER_HOST: tcp://localhost:2376
     IMAGE: thecornershop/toolbox
 
 before_script:
