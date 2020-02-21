@@ -2,6 +2,9 @@
 CI_REGISTRY := registry.gitlab.com/thecornershop
 CI_IMAGE := toolbox
 
+registry-login:
+	docker info
+	docker login -u $$CI_REGISTRY_USER -p $$CI_REGISTRY_PASSWORD $$CI_REGISTRY
 
 toolbox-base:
 	docker pull archlinux/base:latest || true
