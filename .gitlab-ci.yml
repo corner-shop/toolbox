@@ -1,4 +1,5 @@
 .docker: &dind
+  image: "docker:dind"
   services:
   - docker:dind
   variables:
