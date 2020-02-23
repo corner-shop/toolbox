@@ -17,7 +17,7 @@ pipeline {
         parallelsAlwaysFailFast()
     }
     triggers {
-         cron('H * * * *')
+         cron('1 H * * 6')
          pollSCM('H * * * *')
     }
     stages {
