@@ -17,7 +17,7 @@ RUN pacman -Syy  --noconfirm --noprogressbar && \
     pacman -Scc --noconfirm
 
 RUN su - user -c '\
-      wget -O /home/user/.globalrc https://fossies.org/linux/misc/legacy/global-6.6.3.tar.gz/global-6.6.3/gtags.conf?m=t \
+      wget -O /home/user/.globalrc https://fossies.org/linux/misc/global-6.6.4.tar.gz/global-6.6.4/gtags.conf?m=t \
      '
 
 RUN wget http://tamacom.com/global/global-6.6.3.tar.gz  && \
@@ -56,7 +56,8 @@ RUN  virtualenv2 /opt/virtualenv2 && \
 	/opt/virtualenv2/bin/pip2 install bandit  && \
 	/opt/virtualenv2/bin/pip2 install pygments  && \
 	/opt/virtualenv2/bin/pip2 install pynvim  && \
-	/opt/virtualenv2/bin/pip2 install neovim
+	/opt/virtualenv2/bin/pip2 install neovim && \
+	/opt/virtualenv2/bin/pip2 install therapist
 
 RUN  virtualenv3 /opt/virtualenv3 && \
 	/opt/virtualenv3/bin/pip3 install aws-profile && \
@@ -70,7 +71,8 @@ RUN  virtualenv3 /opt/virtualenv3 && \
 	/opt/virtualenv3/bin/pip3 install bandit  && \
 	/opt/virtualenv3/bin/pip3 install pygments  && \
 	/opt/virtualenv3/bin/pip3 install pynvim  && \
-	/opt/virtualenv3/bin/pip3 install neovim
+	/opt/virtualenv3/bin/pip3 install neovim && \
+	/opt/virtualenv3/bin/pip3 install therapist
 
 ENV PATH $PATH:/opt/virtualenv3/bin:/opt/virtualenv2/bin
 
