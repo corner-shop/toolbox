@@ -1,0 +1,3 @@
+actions:
+    dockerlint:
+        run: make test

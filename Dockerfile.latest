@@ -1,5 +1,7 @@
 FROM registry.gitlab.com/thecornershop/toolbox:tools
 
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
 ARG DOCKER_USER_ID
 ARG DOCKER_GROUP_ID
 

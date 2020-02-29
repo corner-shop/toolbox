@@ -1,5 +1,7 @@
 FROM registry.gitlab.com/thecornershop/toolbox:gcc6
 
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
 RUN su - user -c '\
       git clone https://github.com/iamhsa/pkenv.git /home/user/.pkenv && cd /home/user/.pkenv && git checkout 9f0567b331d361c008f41865eecc9ee01927ee62 && \
       git clone https://github.com/tfutils/tfenv.git /home/user/.tfenv && cd /home/user/.tfenv && git checkout 4475b714e0291d20727a3e2946f3b3e2136df059 \
@@ -8,16 +10,28 @@ RUN su - user -c '\
     ln -s /home/user/.tfenv/bin/* /usr/local/bin
 
 RUN pacman -Syy  --noconfirm --noprogressbar && \
+    pacman -S --noconfirm pyenv poetry python-pipenv tmate ;\
     su - user -c '\
       export EDITOR=vim && \
-      for pkg in suexec chruby ruby-build pyenv ruby-install poetry python-pipenv tmate direnv; do \
-        echo 1 | NB_CORES=`grep -c "^processor" /proc/cpuinfo` MAKEFLAGS="-j$((NB_CORES+1)) -l${NB_CORES}" EDITOR=vim \
-          yay --removemake -nodiffmenu --noeditmenu --nouseask --nocleanmenu --noupgrademenu --noconfirm  --search ${pkg} > /dev/null; \
+      for PKG in suexec chruby ruby-build ruby-install direnv; do \
+        echo 1 | \
+	  NB_CORES=$(grep -c "^processor" /proc/cpuinfo) \
+	  MAKEFLAGS="-j$((NB_CORES+1)) -l${NB_CORES}" \
+	  EDITOR=vim \
+            yay --aur --removemake \
+	        -nodiffmenu \
+		--noeditmenu \
+		--nouseask \
+		--nocleanmenu \
+		--noupgrademenu \
+		--noconfirm  \
+		--search ${PKG} > /dev/null; \
       done' && \
+      chmod 755 /usr/bin/ruby-install  && \
     pacman -Scc --noconfirm
 
 RUN su - user -c '\
-      wget -O /home/user/.globalrc https://fossies.org/linux/misc/global-6.6.4.tar.gz/global-6.6.4/gtags.conf?m=t \
+     wget -O /home/user/.globalrc https://fossies.org/linux/misc/global-6.6.4.tar.gz/global-6.6.4/gtags.conf?m=t \
      '
 
 RUN wget http://tamacom.com/global/global-6.6.3.tar.gz  && \
@@ -28,12 +42,12 @@ RUN wget http://tamacom.com/global/global-6.6.3.tar.gz  && \
 	make install && \
 	rm -rf global*
 
-RUN npm install --global vscode-html-languageserver-bin && \
-	npm -g install remark && \
-	npm -g install remark-cli && \
-	npm -g install remark-stringify && \
-	npm -g install remark-frontmatter && \
-	npm -g install wcwidth
+RUN npm install --global vscode-html-languageserver-bin@1.4.0 && \
+	npm -g install remark@11.0.2 && \
+	npm -g install remark-cli@7.0.1 && \
+	npm -g install remark-stringify@7.0.4 && \
+	npm -g install remark-frontmatter@1.3.2 && \
+	npm -g install wcwidth@1.0.1
 
 
 RUN echo "alias svim='vim -u ~/.SpaceVim/vimrc'" > /etc/profile.d/svim.sh && \
@@ -77,13 +91,12 @@ RUN  virtualenv3 /opt/virtualenv3 && \
 ENV PATH $PATH:/opt/virtualenv3/bin:/opt/virtualenv2/bin
 
 RUN cd /usr/bin && \
-	curl -L https://github.com/Praqma/helmsman/releases/download/v1.13.0/helmsman_1.13.0_linux_amd64.tar.gz | tar xvzf - helmsman && \
-	curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl && \
+	curl -L "https://github.com/Praqma/helmsman/releases/download/v1.13.0/helmsman_1.13.0_linux_amd64.tar.gz" | tar xvzf - helmsman && \
+	curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl" && \
 	  chmod +x kubectl && \
 	cd /tmp && \
-	  curl -L https://get.helm.sh/helm-v2.14.1-linux-amd64.tar.gz | tar xvzf - linux-amd64/helm && \
+	  curl -L "https://get.helm.sh/helm-v2.14.1-linux-amd64.tar.gz" | tar xvzf - linux-amd64/helm && \
 	  mv linux-amd64/helm /usr/bin/helm
-
 
 RUN git clone git://git.savannah.gnu.org/gawk.git && \
 	cd gawk && \
