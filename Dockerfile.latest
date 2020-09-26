@@ -7,7 +7,7 @@ ARG DOCKER_GROUP_ID
 
 RUN [ $DOCKER_USER_ID == 0 ] || (groupmod -g $DOCKER_GROUP_ID user && \
     usermod -u $DOCKER_USER_ID user ) && \
-    usermod -G tty,users,docker,git user && \
+    usermod -G tty,users,docker,git,sudo user && \
     chown -R user:user /home/user
 
 USER user

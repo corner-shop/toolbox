@@ -7,7 +7,6 @@ registry-login:
 	docker login -u $$CI_REGISTRY_USER -p $$CI_REGISTRY_PASSWORD $$CI_REGISTRY
 
 toolbox-base:
-	docker pull archlinux/base:latest || true
 	docker pull $(CI_REGISTRY)/$(CI_IMAGE):base || true
 	docker build -f Dockerfile.base -t $(CI_REGISTRY)/$(CI_IMAGE):base .
 	docker push $(CI_REGISTRY)/$(CI_IMAGE):base
@@ -59,12 +58,11 @@ test-tools:
 
 
 toolbox-latest:
-	docker pull $(CI_REGISTRY)/$(CI_IMAGE):latest || true
+	docker pull $(CI_REGISTRY)/$(CI_IMAGE):toolbox-tools || true
 	docker build \
 		--build-arg DOCKER_USER_ID=`id -u` \
 		--build-arg DOCKER_GROUP_ID=`id -g` \
 		-f Dockerfile.latest -t $(CI_REGISTRY)/$(CI_IMAGE):latest .
-	docker push $(CI_REGISTRY)/$(CI_IMAGE):latest
 
 test:
 	docker run --rm -i -v $$PWD/.hadolint.base.yaml:/root/.config/hadolint.yaml  hadolint/hadolint   < Dockerfile.base
